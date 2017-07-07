@@ -58,7 +58,7 @@ module.exports = {
 
         for(i = 0; i < arr.length; i++){
             if(arr[i].name === user){
-                return "this user already exists";
+                throw new Error("this user already exists");
             }
         }
         arr.push({name: user, scoreTime: [], scoreEat: []});
@@ -76,7 +76,7 @@ module.exports = {
                 return "user:" + user + " has beed updated";
             }
         }
-        return "user:" + user + " can not be found";
+        throw new Error("user:" + user + " can not be found");
     },
 
 
@@ -89,7 +89,7 @@ module.exports = {
                 return 'user: ' + user + ' has been deleted';
             } 
         }
-        return "user:" + user + " can not be found";
+        throw new Error("user:" + user + " can not be found");
 
     },
 
