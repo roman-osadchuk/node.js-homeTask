@@ -18,7 +18,7 @@ app.get('/', function(req, res, next) {
 });
 
 app.get('/scores', function(req, res, next) {
-    res.json(mydata.getAllHighestScores(mydata.user_scores));
+    res.json(mydata.getAllInformation(mydata.user_scores));
 });
 
 app.get('/scores/:user', function(req, res, next) {
@@ -26,17 +26,17 @@ app.get('/scores/:user', function(req, res, next) {
 });
 
 
-app.post('/:user', function(req, res, next) {
-    res.json(mydata.createNewUser(mydata.user_scores, req.params.user));
+app.post('/scores/:user', function(req, res, next) {
+    res.json(mydata.createNewUser(mydata.user_scores, req.params.user, req.query.scoreTime, req.query.scoreEat));
 });
 
 
-app.put('/:user', function(req, res, next) {
+app.put('/scores/:user', function(req, res, next) {
     res.json(mydata.updateUser(mydata.user_scores, req.params.user, req.query.scoreTime, req.query.scoreEat));
 });
 
 
-app.delete('/:user', function(req, res, next) {
+app.delete('/scores/:user', function(req, res, next) {
     res.json(mydata.removeUser(mydata.user_scores, req.params.user));
 });
 

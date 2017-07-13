@@ -3,76 +3,58 @@ module.exports = {
     user_scores: [
         {
             name: 'Roman',
-            scoreTime: [34, 52, 27, 48],
-            scoreEat: [5, 8, 3, 4]
+            scoreTime: 52,
+            scoreEat: 8
         },
         {
             name: 'Taras',
-            scoreTime: [27, 44, 41, 39],
-            scoreEat: [2, 5, 4, 5]
+            scoreTime: 44,
+            scoreEat: 5
         },
         {
             name: 'Johny',
-            scoreTime: [45, 36, 28, 53],
-            scoreEat: [7, 4, 4, 7]
+            scoreTime: 53,
+            scoreEat: 7
         },
         {
             name: 'Michael',
-            scoreTime: [38, 29, 40, 36],
-            scoreEat: [6, 5, 6, 5]
+            scoreTime: 40,
+            scoreEat: 6
         }
     ],
 
-    getAllInformation: function(arr){
+
+    getAllInformation: (arr) => {
         return arr;
     },
 
 
-    getUserHighestScore: function (arr, user){
-        let i;
-
-        for(i = 0; i < arr.length; i++){
-            if(arr[i]['name'] === user){
-                return {
-                    name: user,
-                    highest_score: this.findMax(arr[i].scoreTime)
-                }
+    getUserHighestScore: (arr, user) => {
+        for(let i = 0; i < arr.length; i++){
+            if(arr[i].name === user){
+                return arr[i]
             }
         }
+        throw new Error("user:" + user + " can not be found");  
     },
 
 
-    getAllHighestScores: function (arr){
-        let arrOfHighestScores = [],
-            i;
-
-        for(i = 0; i < arr.length; i++){
-            arrOfHighestScores.push(this.findMax(arr[i].scoreTime));
-        }
-        return arrOfHighestScores
-    },
-
-
-    createNewUser: function(arr, user){
-        let i;
-
-        for(i = 0; i < arr.length; i++){
+    createNewUser: (arr, user, time, eat) => {
+        for(let i = 0; i < arr.length; i++){
             if(arr[i].name === user){
                 throw new Error("this user already exists");
             }
         }
-        arr.push({name: user, scoreTime: [], scoreEat: []});
+        arr.push({name: user, scoreTime: +time, scoreEat: +eat});
         return "new user " + user + " has beed added";
     },
 
 
-    updateUser: function(arr, user, time, eat){
-        let i;
-
-        for(i = 0; i < arr.length; i++){
+    updateUser: (arr, user, time, eat) => {
+        for(let i = 0; i < arr.length; i++){
             if(arr[i].name === user){
-                arr[i].scoreTime.push(+time);
-                arr[i].scoreEat.push(+eat);
+                arr[i].scoreTime = +time;
+                arr[i].scoreEat = +eat;
                 return "user:" + user + " has beed updated";
             }
         }
@@ -80,31 +62,14 @@ module.exports = {
     },
 
 
-    removeUser: function(arr, user){
-        let i;
-
-        for(i = 0; i < arr.length; i++){
+    removeUser: (arr, user) => {
+        for(let i = 0; i < arr.length; i++){
             if(arr[i].name === user){
                 arr.splice(i, 1);
                 return 'user: ' + user + ' has been deleted';
             } 
         }
         throw new Error("user:" + user + " can not be found");
-
-    },
-
-
-    findMax: function (arr) {
-        let max = -Infinity,
-            i;
-        
-        for (i = 0; i < arr.length; i++) {
-            if (arr[i] > max) {
-                max = arr[i];
-            }
-        }
-        return max;
     }
-
 
 }
